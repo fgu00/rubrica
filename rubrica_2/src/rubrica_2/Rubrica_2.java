@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.gestioneGridPane;
 import model.listacontatti;
+import model.visualizzacontatti;
 
 /**
  *
@@ -38,8 +39,17 @@ public class Rubrica_2 extends Application {
 //        vboxD.setSpacing(20);
 //        
         gestioneGridPane gg = new gestioneGridPane();
-        VBox vboxS = new VBox(new Label("SINISTRA"));
-        splitpane.getItems().addAll(vboxS,gg.getGridPane());
+        visualizzacontatti vc=new visualizzacontatti();
+        Button a=new Button("->");
+        a.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+               if(vc.getpos()<=vc.getContatti()-1){
+                  vc.pos1();
+                  gg.setGrindpane(vc.getContatti(vc.getpos()-1));
+               } 
+            }});
+        splitpane.getItems().addAll(a,vc.getGridPane(),gg.getGridPane());
         Scene scene = new Scene(splitpane, 500, 350);
         primaryStage.setTitle(" Rubrica 1 ");
         primaryStage.setScene(scene);

@@ -36,9 +36,16 @@ private Label id,nome,cognome, via,citta;
     
     
     
-    public GridPane getGridPane(){
-        
+    public GridPane getGridPane(){  
         return gridpane;
+    }
+    public void setGrindpane(String a){
+        String[]lista=a.split(":");
+        id.setText(lista[0]);
+        nome.setText(lista[1]);
+        cognome.setText(lista[2]);
+        via.setText(lista[3]);
+        citta.setText(lista[4]);
     }
 }
    

@@ -60,6 +60,11 @@ public class contatti {
         this.citta = citta;
     }
 
+    @Override
+    public String toString() {
+        return  id +":"+ nome + ":" + cognome + ":" + via + ":" + citta ;
+    }
+
    
 }
    

@@ -73,4 +73,7 @@ public class listacontatti {
     public String getCitta(int i){
         return a.get(i).getCitta();   
     }
+    public String getTUTTO(int i){
+        return a.get(i).toString();
+    }
 }
