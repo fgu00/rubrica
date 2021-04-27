@@ -6,6 +6,7 @@
 package model;
 
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -32,7 +33,9 @@ private Label id,nome,cognome, via,citta;
         gridpane.addRow(5, new Label("CITTA:  "), citta);
         gridpane.setVgap(20);
     }
-    
+    public void risetGrindpane(TableView<contatti>listacontatti){
+       id.setText(String.valueOf(listacontatti.getSelectionModel()));  
+    }
     
     
     

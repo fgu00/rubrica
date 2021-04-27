@@ -6,15 +6,22 @@
 package rubrica_2;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.contatti;
 import model.gestioneGridPane;
 import model.listacontatti;
 import model.visualizzacontatti;
@@ -23,11 +30,15 @@ import model.visualizzacontatti;
  *
  * @author russo.salvatore
  */
+
 public class Rubrica_2 extends Application {
+    private final ObservableList<contatti>lista=FXCollections.observableArrayList();
+    private int pos;
     
     @Override
     public void start(Stage primaryStage) {
      SplitPane splitpane = new SplitPane();
+     
 //        
 //        HBox hId =new HBox(new Label("ID: "), new Label());
 //        HBox hnome =new HBox(new Label("NOME: "), new Label());
@@ -40,17 +51,30 @@ public class Rubrica_2 extends Application {
 //        
         gestioneGridPane gg = new gestioneGridPane();
         visualizzacontatti vc=new visualizzacontatti();
-        Button a=new Button("->");
+        Button a=new Button("-->");
         a.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-               if(vc.getpos()<=vc.getContatti()-1){
-                  vc.pos1();
-                  gg.setGrindpane(vc.getContatti(vc.getpos()-1));
-               } 
+              if(pos<vc.dimensione()){
+                  pos++;
+                  gg.setGrindpane(vc.getContatto(pos-1));
+              } 
             }});
-        splitpane.getItems().addAll(a,vc.getGridPane(),gg.getGridPane());
-        Scene scene = new Scene(splitpane, 500, 350);
+         Button b=new Button("<--");
+        b.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+              if(pos!=0){
+                  pos--;
+                  gg.setGrindpane(vc.getContatto(pos));
+              } 
+            }});
+        HBox nc=new HBox();
+        nc.getChildren().addAll(b,a);
+        SplitPane splitpane2 = new SplitPane();
+        splitpane2.getItems().addAll(vc.getTv(),nc);
+        splitpane.getItems().addAll(splitpane2,gg.getGridPane());
+        Scene scene = new Scene(splitpane, 900, 350);
         primaryStage.setTitle(" Rubrica 1 ");
         primaryStage.setScene(scene);
         primaryStage.show();

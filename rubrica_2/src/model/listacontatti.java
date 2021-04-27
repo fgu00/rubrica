@@ -39,7 +39,7 @@ public class listacontatti {
             while(ciclo==true){
                 String[]dati=linea.split(":");
                 String id=dati[0];
-                System.out.println(id);
+                System.out.println(id+" lll");
                 String nome=dati[1];
                 String cognome=dati[2];
                 String via=dati[3];

@@ -5,10 +5,16 @@
  */
 package model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -23,45 +29,40 @@ import javafx.scene.text.Font;
  * @author russo.salvatore
  */
 public class visualizzacontatti {
-   private GridPane gridpane;
+   private TableView <contatti>tv;
    private listacontatti lc;
-   private StackPane sp;
-   private Rectangle[]r;
-   private int pos=0;
+    private final ObservableList<contatti>lista=FXCollections.observableArrayList();
    
     public visualizzacontatti() {
-        Label nome = new Label();
-        sp=new StackPane();
-        lc=new listacontatti();
-        lc.leggi();
-         gridpane=new GridPane();
-        r=new Rectangle[lc.dimensione()];
+     tv=new  TableView();
+     lc=new listacontatti();
+     lc.leggi();
+     TableColumn<contatti,String>nome=new TableColumn("nome");
+     nome.setMinWidth(150);
+     nome.setCellValueFactory(new PropertyValueFactory<contatti,String>("nome"));
+     TableColumn<contatti,String>cognome=new TableColumn("cognome");
+     cognome.setMinWidth(150);
+     cognome.setCellValueFactory(new PropertyValueFactory<contatti,String>("cognome"));
         for (int i = 0; i < lc.dimensione(); i++) {
-            r[i]=new Rectangle(80,80);
-            r[i].setFill(Color.WHITE);
-             nome.setText(lc.getNome(i)+" "+lc.getCognome(i));
-              sp.getChildren().addAll(r[i],nome);
-              System.out.println(nome);
-               gridpane.addRow(i,sp);
-                System.out.println(nome);
+            System.out.println(lc.getId(i));
+           lista.add(new contatti(lc.getId(i),lc.getNome(i),lc.getCognome(i),lc.getVia(i),lc.getCitta(i)));
         }
+     tv.setItems(lista);
+     tv.getColumns().addAll(nome,cognome);  
+    System.out.println(nome);
+        }
+
+    public TableView<contatti> getTv() {
+        return tv;
     }
-    public String getContatti(int a){
-       return lc.getTUTTO(a);  
+    public String getContatto(int pos){
+       return lc.getTUTTO(pos);   
     }
-     public GridPane getGridPane(){
-        return gridpane;
+    public int dimensione(){
+       return lc.dimensione();   
     }
-     public void pos1(){
-         pos=pos+1;
-         r[pos-1].setFill(Color.RED);
-     }
-     public int getpos(){
-       return pos; 
-     }
-     public int getContatti(){
-       return lc.dimensione(); 
-     }
     }
+    
+    
          
 
